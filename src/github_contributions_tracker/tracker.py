@@ -94,8 +94,8 @@ class GitHubContributionsTracker:
                 # Get the repository object
                 repo = self.github.get_repo(repo_name)
                 
-                # Get commits with pagination limit
-                commits = repo.get_commits(since=start_date, until=end_date, author=self.user, per_page=100)
+                # Get commits
+                commits = repo.get_commits(since=start_date, until=end_date, author=self.user)
                 if commits.totalCount > 0:
                     print(f"    Found {commits.totalCount} commits")
                     # Limit to first 50 commits per repo for performance
@@ -569,7 +569,7 @@ class GitHubContributionsTracker:
                             repo = self.github.get_repo(repo_name)
                             
                             # Get commits for this chunk
-                            commits = repo.get_commits(since=current_date, until=chunk_end, author=self.user, per_page=30)
+                            commits = repo.get_commits(since=current_date, until=chunk_end, author=self.user)
                             print(f"  Repository: {repo_name}")
                             for commit in commits:
                                 commit_data = {
